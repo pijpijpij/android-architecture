@@ -16,10 +16,8 @@
 
 package com.example.android.architecture.blueprints.todoapp.tasks;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
 
-import com.example.android.architecture.blueprints.todoapp.addedittask.AddEditTaskActivity;
 import com.example.android.architecture.blueprints.todoapp.data.Task;
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource;
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository;
@@ -69,13 +67,10 @@ final class TasksPresenter implements TasksContract.Presenter {
 
 
     @Override
-    public void result(int requestCode, int resultCode) {
+    public void indicateTaskSaved() {
 //         If a task was successfully added, show snackbar
-        if (AddEditTaskActivity.REQUEST_ADD_TASK == requestCode
-                && Activity.RESULT_OK == resultCode) {
-            if (mTasksView != null) {
-                mTasksView.showSuccessfullySavedMessage();
-            }
+        if (mTasksView != null) {
+            mTasksView.showSuccessfullySavedMessage();
         }
     }
 

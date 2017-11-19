@@ -16,6 +16,7 @@
 
 package com.example.android.architecture.blueprints.todoapp.tasks;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -114,7 +115,11 @@ public class TasksFragment extends DaggerFragment implements TasksContract.View 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        mPresenter.result(requestCode, resultCode);
+//         call Presenter back.
+        if (AddEditTaskActivity.REQUEST_ADD_TASK == requestCode
+                && Activity.RESULT_OK == resultCode) {
+            mPresenter.indicateTaskSaved();
+        }
     }
 
     @Nullable
@@ -362,12 +367,12 @@ public class TasksFragment extends DaggerFragment implements TasksContract.View 
         private List<Task> mTasks;
         private TaskItemListener mItemListener;
 
-        public TasksAdapter(List<Task> tasks, TaskItemListener itemListener) {
+        TasksAdapter(List<Task> tasks, TaskItemListener itemListener) {
             setList(tasks);
             mItemListener = itemListener;
         }
 
-        public void replaceData(List<Task> tasks) {
+        void replaceData(List<Task> tasks) {
             setList(tasks);
             notifyDataSetChanged();
         }

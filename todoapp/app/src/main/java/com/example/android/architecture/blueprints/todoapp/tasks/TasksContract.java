@@ -68,7 +68,7 @@ public interface TasksContract {
 
     interface Presenter extends BasePresenter<View> {
 
-        void result(int requestCode, int resultCode);
+        void indicateTaskSaved();
 
         void loadTasks(boolean forceUpdate);
 
