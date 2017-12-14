@@ -43,6 +43,7 @@ public class TasksActivity extends DaggerAppCompatActivity {
     @Inject
     Lazy<TasksFragment> taskFragmentProvider;
     private DrawerLayout mDrawerLayout;
+    private TasksFilterType filtering;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class TasksActivity extends DaggerAppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
+        //noinspection ConstantConditions
         ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
 
@@ -74,16 +76,15 @@ public class TasksActivity extends DaggerAppCompatActivity {
 
 
         // Load previously saved state, if available.
-        if (savedInstanceState != null) {
-            TasksFilterType currentFiltering =
-                    (TasksFilterType) savedInstanceState.getSerializable(CURRENT_FILTERING_KEY);
-            mTasksPresenter.setFiltering(currentFiltering);
-        }
+        TasksFilterType currentFiltering = (savedInstanceState != null) ?
+                (TasksFilterType) savedInstanceState.getSerializable(CURRENT_FILTERING_KEY) :
+                TasksFilterType.ALL_TASKS;
+        mTasksPresenter.setFiltering(currentFiltering);
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(CURRENT_FILTERING_KEY, mTasksPresenter.getFiltering());
+        outState.putSerializable(CURRENT_FILTERING_KEY, filtering);
 
         super.onSaveInstanceState(outState);
     }

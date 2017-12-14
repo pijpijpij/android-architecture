@@ -64,6 +64,8 @@ public interface TasksContract {
         boolean isActive();
 
         void showFilteringPopUpMenu();
+
+        void setFiltering(TasksFilterType filtering);
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -82,12 +84,6 @@ public interface TasksContract {
 
         void clearCompletedTasks();
 
-        TasksFilterType getFiltering();
-
         void setFiltering(TasksFilterType requestType);
-
-        void takeView(TasksContract.View view);
-
-        void dropView();
     }
 }

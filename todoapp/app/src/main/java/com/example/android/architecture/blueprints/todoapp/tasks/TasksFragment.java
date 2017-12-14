@@ -19,6 +19,7 @@ package com.example.android.architecture.blueprints.todoapp.tasks;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -87,6 +88,7 @@ public class TasksFragment extends DaggerFragment implements TasksContract.View 
     private TextView mNoTaskAddView;
     private LinearLayout mTasksView;
     private TextView mFilteringLabelView;
+    private TasksFilterType filtering;
 
     @Inject
     public TasksFragment() {
@@ -124,7 +126,7 @@ public class TasksFragment extends DaggerFragment implements TasksContract.View 
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.tasks_frag, container, false);
 
@@ -225,6 +227,11 @@ public class TasksFragment extends DaggerFragment implements TasksContract.View 
         });
 
         popup.show();
+    }
+
+    @Override
+    public void setFiltering(TasksFilterType filtering) {
+        this.filtering = filtering;
     }
 
     @Override

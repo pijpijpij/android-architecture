@@ -52,7 +52,7 @@ final class TasksPresenter implements TasksContract.Presenter {
     @Nullable
     private TasksContract.View mTasksView;
 
-    private TasksFilterType mCurrentFiltering = TasksFilterType.ALL_TASKS;
+    private TasksFilterType mCurrentFiltering;
 
     private boolean mFirstLoad = true;
 
@@ -247,11 +247,6 @@ final class TasksPresenter implements TasksContract.Presenter {
         loadTasks(false, false);
     }
 
-    @Override
-    public TasksFilterType getFiltering() {
-        return mCurrentFiltering;
-    }
-
     /**
      * Sets the current task filtering type.
      *
@@ -262,6 +257,9 @@ final class TasksPresenter implements TasksContract.Presenter {
     @Override
     public void setFiltering(TasksFilterType requestType) {
         mCurrentFiltering = requestType;
+        if (mTasksView != null) {
+            mTasksView.setFiltering(mCurrentFiltering);
+        }
     }
 
     @Override
